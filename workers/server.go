@@ -1,7 +1,6 @@
 package workers
 
 import (
-	"context"
 	"fmt"
 	"musical/config"
 
@@ -30,11 +29,7 @@ func InitWorkers() {
 	// Create a new task's mux instance.
 	mux := asynq.NewServeMux()
 
-	mux.HandleFunc(config.TASK_TYPE,
-		func(c context.Context, t *asynq.Task) error {
-			fmt.Print(string(t.Payload()))
-			return nil
-		})
+	mux.HandleFunc(config.TASK_TYPE, processJob)
 
 	if err := worker.Run(mux); err != nil {
 		log.Error(err.Error())

@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"encoding/json"
@@ -17,13 +17,14 @@ type JobParams struct {
 }
 
 func enqueueJob(c *fiber.Ctx) error {
-	params := &JobParams{}
+	params := &model.JobParams{}
 
 	reqBody := c.Body()
 	err := json.Unmarshal(reqBody, params)
 	if err != nil {
 		c.Status(http.StatusBadRequest).SendString(err.Error())
-		return nil
+		log.Error(err.Error())
+		return err
 	}
 
 	log.WithField("job", params).Info("enqueing new job")
@@ -33,6 +34,7 @@ func enqueueJob(c *fiber.Ctx) error {
 
 	if _, err := QClient.Enqueue(job); err != nil {
 		log.Error(err.Error())
+		return err
 	}
 	log.WithField("job", params).Info("job queued succesfully")
 	return nil
