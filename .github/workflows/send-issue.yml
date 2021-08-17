@@ -1,0 +1,25 @@
+# send issue payload (title & id) to specified webhook url
+
+name: send-issue-to-webhook
+
+on:
+  issues:
+    types:
+      - reopened
+      - opened
+jobs:
+  send-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post-issue
+      - uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ secrets.WEBHOOK_URL }}
+          method: 'POST'
+          data: '{
+               "issue_number": ${{github.event.issue.number}},
+               "title": ${{github.event.issue.title}}
+              }'
+          bearerToken: ${{ secrets.TOKEN }}
+          ignoreStatusCodes: 'false'
+        run: echo Sync completed for ${{github.event.issue.title}}!
