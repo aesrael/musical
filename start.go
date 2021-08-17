@@ -4,5 +4,6 @@ import "musical/config"
 
 func initWebServer() {
 	server := httpServer()
-	server.Listen(config.SERVER_PORT)
+	addr := "localhost" + config.SERVER_PORT
+	server.Listen(addr)
 }

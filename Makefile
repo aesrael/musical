@@ -1,1 +1,2 @@
-install: go-get
+run: 
+	go build . && ./musical

@@ -8,5 +8,4 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/hibiken/asynq v0.18.3
 	github.com/joho/godotenv v1.3.0
-	gopkg.in/bsm/ratelimit.v1 v1.0.0-20160220154919-db14e161995a // indirect
 )

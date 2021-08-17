@@ -17,7 +17,7 @@ var Config = ConfigType{
 	"REDIS_USERNAME": "musical",
 }
 
-const SERVER_PORT = "8999"
+const SERVER_PORT = ":8999"
 const TASK_TYPE = "job:issue"
 
 func InitConfig() {
@@ -30,15 +30,21 @@ func InitConfig() {
 	required := []string{
 		"GO_ENV",
 		"JWT_KEY",
+		"REDIS_HOST",
+		"REDIS_PORT",
+		"REDIS_PASSWORD",
+		"REDIS_USERNAME",
+		"GITHUB_TOKEN",
+		"GOOGLE_DRIVE_KEY",
 	}
 
 	for _, env := range required {
-		envVar, exists := os.LookupEnv(env)
+		envVal, exists := os.LookupEnv(env)
 		if !exists {
 			log.Fatal(env + " not found in env")
 		}
-		if val, ok := Config[envVar]; ok {
-			Config[envVar] = val
+		if _, ok := Config[env]; ok {
+			Config[env] = envVal
 		}
 	}
 }

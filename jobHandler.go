@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"musical/config"
+
 	"net/http"
 
 	"github.com/apex/log"
@@ -25,7 +26,7 @@ func enqueueJob(c *fiber.Ctx) error {
 		return nil
 	}
 
-	log.Info("enqueing new job")
+	log.WithField("job", params).Info("enqueing new job")
 	// push job to queue from where it is eventually picked up and
 	// processed by the worker
 	job := asynq.NewTask(config.TASK_TYPE, reqBody)
@@ -33,6 +34,6 @@ func enqueueJob(c *fiber.Ctx) error {
 	if _, err := QClient.Enqueue(job); err != nil {
 		log.Error(err.Error())
 	}
-	log.Info("job queued succesfully")
+	log.WithField("job", params).Info("job queued succesfully")
 	return nil
 }

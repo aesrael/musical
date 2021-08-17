@@ -1,6 +1,7 @@
 package main
 
 import (
+	"musical/config"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,14 +16,12 @@ func auth(c *fiber.Ctx) error {
 	}
 
 	_, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-		return JWT_KEY, nil
+		return []byte(config.Config["JWT_KEY"]), nil
 	})
 
 	if err != nil {
-		if err == jwt.ErrSignatureInvalid {
-			c.SendStatus(http.StatusUnauthorized)
-			return nil
-		}
+		c.Status(http.StatusUnauthorized).SendString(err.Error())
+		return err
 	}
 	return c.Next()
 }
