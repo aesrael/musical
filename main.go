@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"musical/config"
+)
 
 func main() {
-	fmt.Println("heya!")
+	config.InitConfig()
+	InitQueue()
+	initWebServer()
 }
