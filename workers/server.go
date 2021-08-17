@@ -9,15 +9,14 @@ import (
 	"github.com/hibiken/asynq"
 )
 
-var JWT_KEY = config.Config["JWT_KEY"]
-var REDIS_HOST = config.Config["REDIS_HOST"]
-var REDIS_USERNAME = config.Config["REDIS_USERNAME"]
-var REDIS_PORT = config.Config["REDIS_PORT"]
-var REDIS_PASSWORD = config.Config["REDIS_PASSWORD"]
+func InitWorkers() {
+	REDIS_HOST := config.Config["REDIS_HOST"]
+	REDIS_USERNAME := config.Config["REDIS_USERNAME"]
+	REDIS_PORT := config.Config["REDIS_PORT"]
+	REDIS_PASSWORD := config.Config["REDIS_PASSWORD"]
 
-func main() {
-	Addr := fmt.Sprintf("%s:%s", REDIS_HOST, REDIS_PASSWORD)
-
+	Addr := fmt.Sprintf("%s:%s", REDIS_HOST, REDIS_PORT)
+	fmt.Print(Addr)
 	conn := asynq.RedisClientOpt{
 		Addr:     Addr,
 		Password: REDIS_PASSWORD,
@@ -33,6 +32,7 @@ func main() {
 
 	mux.HandleFunc(config.TASK_TYPE,
 		func(c context.Context, t *asynq.Task) error {
+			fmt.Print(string(t.Payload()))
 			return nil
 		})
 
