@@ -2,28 +2,24 @@
 
 name: send-issue-to-webhook
 
-# Controls when the workflow will run
 on:
   issues:
     types:
       - reopened
       - opened
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   send-issue:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world ${{ toJSON(github.event.issue) }}!
+      - name: post-issue
+      - uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ secrets.WEBHOOK_URL }}
+          method: 'POST'
+          data: '{
+               "issue_number": ${{github.event.issue.number}},
+               "title": ${{github.event.issue.title}}
+              }'
+          bearerToken: ${{ secrets.TOKEN }}
+          ignoreStatusCodes: 'false'
+        run: echo Sync completed for ${{github.event.issue.title}}!
