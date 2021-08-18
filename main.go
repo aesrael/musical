@@ -2,19 +2,20 @@ package main
 
 import (
 	"musical/config"
+	"musical/server"
 	"musical/workers"
 	"sync"
 )
 
 func main() {
 	config.InitConfig()
-	InitQueue()
+	server.InitQueue()
 
 	wg := new(sync.WaitGroup)
 	wg.Add(2)
 
 	go func() {
-		initWebServer()
+		server.InitWebServer()
 		wg.Done()
 	}()
 
