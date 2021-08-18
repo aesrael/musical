@@ -10,15 +10,18 @@ import (
 type ConfigType map[string]string
 
 var Config = ConfigType{
-	"JWT_KEY":        "",
-	"REDIS_HOST":     "",
-	"REDIS_PORT":     "",
-	"REDIS_PASSWORD": "",
-	"REDIS_USERNAME": "musical",
+	"JWT_KEY":                "",
+	"REDIS_HOST":             "",
+	"REDIS_PORT":             "",
+	"REDIS_PASSWORD":         "",
+	"REDIS_USERNAME":         "musical",
+	"GOOGLE_API_CREDENTIALS": "",
+	"GOOGLE_DRIVE_FOLDER":    "",
 }
 
 const SERVER_PORT = ":8999"
-const TASK_TYPE = "job:issue"
+const DL_TRACK_JOB = "job:download"
+const UL_TRACK_JOB = "job:upload"
 
 func InitConfig() {
 	if err := godotenv.Load(); err != nil {
@@ -35,7 +38,8 @@ func InitConfig() {
 		"REDIS_PASSWORD",
 		"REDIS_USERNAME",
 		"GITHUB_TOKEN",
-		"GOOGLE_DRIVE_KEY",
+		"GOOGLE_API_CREDENTIALS",
+		"GOOGLE_DRIVE_FOLDER",
 	}
 
 	for _, env := range required {

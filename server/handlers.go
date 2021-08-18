@@ -30,7 +30,7 @@ func enqueueJob(c *fiber.Ctx) error {
 	log.WithField("job", params).Info("enqueing new job")
 	// push job to queue from where it is eventually picked up and
 	// processed by the worker
-	job := asynq.NewTask(config.TASK_TYPE, reqBody)
+	job := asynq.NewTask(config.DL_TRACK_JOB, reqBody)
 
 	if _, err := QClient.Enqueue(job); err != nil {
 		log.Error(err.Error())

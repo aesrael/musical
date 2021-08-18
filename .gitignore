@@ -17,3 +17,5 @@
 musical
 __debug_bin
 .spotdl-cache
+files/
+.DS_Store
