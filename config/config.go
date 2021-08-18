@@ -25,7 +25,7 @@ func InitConfig() {
 		log.Fatal("No .env file found")
 	}
 
-	env, _ := os.LookupEnv("GO_ENV")
+	env := os.Getenv("GO_ENV")
 	log.Info("env: " + env)
 	required := []string{
 		"GO_ENV",

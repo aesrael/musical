@@ -11,13 +11,13 @@ import (
 	"github.com/hibiken/asynq"
 )
 
-type JobParams struct {
+type Job struct {
 	IssueNumber string `json:"issue_number"`
 	Title       string `json:"title"`
 }
 
 func enqueueJob(c *fiber.Ctx) error {
-	params := &model.JobParams{}
+	params := &Job{}
 
 	reqBody := c.Body()
 	err := json.Unmarshal(reqBody, params)

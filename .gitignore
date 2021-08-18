@@ -15,3 +15,5 @@
 # vendor/
 .env
 musical
+__debug_bin
+.spotdl-cache
