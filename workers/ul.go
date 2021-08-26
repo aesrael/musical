@@ -1,6 +1,8 @@
 package workers
 
 import (
+	"io/ioutil"
+	"musical/drive"
 	"os"
 	"path/filepath"
 
@@ -25,21 +27,23 @@ func uploadTrack(dirName string) error {
 			continue
 		}
 		trackPath := filepath.Join(dirPath, v.Name())
-		file, err := os.Open(trackPath)
+		file, err := ioutil.ReadFile(trackPath)
 		if err != nil {
 			return err
 		}
 
-		if err := uploadFileToDrive(file, v.Name()); err != nil {
+		_, uploadErr := drive.UploadFileToDrive(file, v.Name())
+
+		if uploadErr != nil {
 			return err
 		}
 		log.Info("file uploded: " + v.Name())
+		os.RemoveAll(trackPath)
 	}
 
-	// upload track to drive
 	if err := RedisDB.Set(dirName, "done", 0).Err(); err != nil {
 		return err
 	}
 
-	return nil
+	return os.RemoveAll(dirPath)
 }

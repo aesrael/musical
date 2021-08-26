@@ -39,3 +39,14 @@ func enqueueJob(c *fiber.Ctx) error {
 	log.WithField("job", params).Info("job queued succesfully")
 	return nil
 }
+
+func backupDb(c *fiber.Ctx) error {
+	log.Info("uploading new db file")
+	job := asynq.NewTask(config.BACKUP_DB_JOB, c.Body())
+
+	if _, err := QClient.Enqueue(job); err != nil {
+		log.Error(err.Error())
+		return err
+	}
+	return nil
+}
