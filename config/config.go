@@ -22,6 +22,8 @@ var Config = ConfigType{
 const SERVER_PORT = ":8999"
 const DL_TRACK_JOB = "job:download"
 const UL_TRACK_JOB = "job:upload"
+const BACKUP_DB_JOB = "job:backup"
+const DB_FILE = "db.json"
 
 func InitConfig() {
 	if err := godotenv.Load(); err != nil {

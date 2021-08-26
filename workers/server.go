@@ -39,6 +39,7 @@ func InitWorkers() {
 
 	mux.HandleFunc(config.DL_TRACK_JOB, processDownload)
 	mux.HandleFunc(config.UL_TRACK_JOB, processUpload)
+	mux.HandleFunc(config.BACKUP_DB_JOB, backupDb)
 
 	if err := worker.Run(mux); err != nil {
 		log.Error(err.Error())

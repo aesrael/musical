@@ -35,3 +35,11 @@ func isMusicFile(trackTitle string) bool {
 
 	return supportedAudioTypes[ext]
 }
+
+func isRedisNilError(err error) bool {
+	return err != nil && err.Error() == "redis: nil"
+}
+
+func isWrongTypeError(err error) bool {
+	return err != nil && err.Error() == "WRONGTYPE Operation against a key holding the wrong kind of value"
+}
