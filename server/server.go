@@ -15,7 +15,6 @@ func httpServer() *fiber.App {
 	app.Use(requestid.New())
 
 	api.Post("/job", enqueueJob)
-	// this is triggered by a nightly job
 	api.Get("/backup", backupDb)
 
 	return app

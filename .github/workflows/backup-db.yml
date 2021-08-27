@@ -1,18 +1,22 @@
-# daily ping to backup db
+# 10-minutely backup job
 name: "backup db"
 on:
   schedule:
-  - cron: "00 12 * * *"
+    - cron:  '*/5 * * * *'
 
 jobs:
-  send-issue:
+  backup-job:
     runs-on: ubuntu-latest
     steps:
-      - name: ping
-      - uses: fjogeleit/http-request-action@master
-        with:
-          url: ${{ secrets.BACKUP_URL }}
-          method: 'GET'
-          bearerToken: ${{ secrets.TOKEN }}
-          ignoreStatusCodes: 'false'
-        run: echo Daily backup started!
+    - name: ping
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: ${{ secrets.BACKUP_URL }}
+        method: 'GET'
+        customHeaders: '{
+              "Authorization":  "${{ secrets.TOKEN }}"
+            }'
+        ignoreStatusCodes: 'false'
+        timeout: 10000
+    - name: done
+      run:  echo Daily backup started!
