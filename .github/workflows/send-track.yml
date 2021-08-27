@@ -1,25 +1,23 @@
 # send issue payload (title & id) to specified webhook url
 
-name: send-issue-to-webhook
+name: send-track
 
 on:
-  issues:
-    types:
-      - reopened
-      - opened
+  issue_comment:
+    types: [created, edited]
+
 jobs:
-  send-issue:
+  track_added:
     runs-on: ubuntu-latest
     steps:
-      - name: post-issue
+      - name: send track
       - uses: fjogeleit/http-request-action@master
         with:
           url: ${{ secrets.WEBHOOK_URL }}
           method: 'POST'
           data: '{
-               "issue_number": ${{github.event.issue.number}},
-               "title": ${{github.event.issue.title}}
+               "track":  ${{ github.event.comment.body }}
               }'
           bearerToken: ${{ secrets.TOKEN }}
           ignoreStatusCodes: 'false'
-        run: echo Sync completed for ${{github.event.issue.title}}!
+        run: echo enqueued ${{ github.event.comment.body }} !
