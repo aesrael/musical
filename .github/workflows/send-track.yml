@@ -1,4 +1,4 @@
-# send issue payload (title & id) to specified webhook url
+# send issue url to specified webhook url
 
 name: send-track
 

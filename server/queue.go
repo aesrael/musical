@@ -39,7 +39,7 @@ func InitQueue() {
 func seedDB(db *redis.Client) error {
 	keys, _ := db.Keys("*").Result()
 	if len(keys) != 0 {
-		// return nil
+		return nil
 	}
 
 	res, err := drive.GetCloudDB()

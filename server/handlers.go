@@ -12,8 +12,7 @@ import (
 )
 
 type Job struct {
-	IssueNumber string `json:"issue_number"`
-	Title       string `json:"title"`
+	Track string `json:"track"`
 }
 
 func enqueueJob(c *fiber.Ctx) error {
