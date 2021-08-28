@@ -18,24 +18,24 @@ func processDownload(c context.Context, t *asynq.Task) error {
 		return nil
 	}
 
-	trackId, err := GetTrackId(job.Title)
+	trackId, err := GetTrackId(job.Track)
 	if err != nil {
 		return err
 	}
-	res, err := RedisDB.Get(trackId).Result()
+	status, err := RedisDB.Get(trackId).Result()
 
 	if err != nil && !isRedisNilError(err) {
 		return err
 	}
 
-	if res != "" {
+	if status == "done" || status == "pending" {
 		return fmt.Errorf("file already processed, %w", asynq.SkipRetry)
 	}
 
-	log.WithField("job", job).Info("processing job #" + job.IssueNumber)
+	log.WithField("job", job).Info("processing job")
 
-	if err := downloadTrack(job.Title); err != nil {
-		log.WithField("track", job.Title).Error(fmt.Sprintf("download error: %s", err.Error()))
+	if err := downloadTrack(job.Track); err != nil {
+		log.WithField("track", job.Track).Error(fmt.Sprintf("download error: %s", err.Error()))
 		return err
 	}
 	return nil

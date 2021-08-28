@@ -1,0 +1,22 @@
+# send issue url to specified webhook url
+
+name: send-track
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  track_added:
+    runs-on: ubuntu-latest
+    steps:
+    - name: send track
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: ${{ secrets.WEBHOOK_URL }}
+        method: 'POST'
+        data: '{"track":  "${{ github.event.comment.body }}"}'
+        customHeaders: '{"Authorization":  "${{ secrets.TOKEN }}"}'
+        ignoreStatusCodes: 'false'
+    - name: done
+      run:  echo enqueued ${{ github.event.comment.body }}!

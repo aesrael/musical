@@ -24,6 +24,7 @@ const DL_TRACK_JOB = "job:download"
 const UL_TRACK_JOB = "job:upload"
 const BACKUP_DB_JOB = "job:backup"
 const DB_FILE = "db.json"
+const ALLOWED_ORIGINS = "https://github.com"
 
 func InitConfig() {
 	if err := godotenv.Load(); err != nil {

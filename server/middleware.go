@@ -9,7 +9,8 @@ import (
 )
 
 func auth(c *fiber.Ctx) error {
-	tokenStr := c.Get("bearerToken")
+	tokenStr := c.Get("Authorization")
+
 	if tokenStr == "" {
 		c.SendStatus(http.StatusUnauthorized)
 		return nil

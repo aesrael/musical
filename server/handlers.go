@@ -12,8 +12,7 @@ import (
 )
 
 type Job struct {
-	IssueNumber string `json:"issue_number"`
-	Title       string `json:"title"`
+	Track string `json:"track"`
 }
 
 func enqueueJob(c *fiber.Ctx) error {
@@ -46,7 +45,8 @@ func backupDb(c *fiber.Ctx) error {
 
 	if _, err := QClient.Enqueue(job); err != nil {
 		log.Error(err.Error())
+		c.Status(http.StatusInternalServerError).SendString(err.Error())
 		return err
 	}
-	return nil
+	return c.SendStatus(http.StatusOK)
 }
