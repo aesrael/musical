@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"musical/config"
 	"net/http"
 
@@ -11,8 +10,7 @@ import (
 
 func auth(c *fiber.Ctx) error {
 	tokenStr := c.Get("Authorization")
-	a := c.Request().Header.RawHeaders()
-	fmt.Print(string(a))
+
 	if tokenStr == "" {
 		c.SendStatus(http.StatusUnauthorized)
 		return nil

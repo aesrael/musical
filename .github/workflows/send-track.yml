@@ -15,12 +15,8 @@ jobs:
       with:
         url: ${{ secrets.WEBHOOK_URL }}
         method: 'POST'
-        data: '{
-              "track":  "${{ github.event.comment.body }}"
-            }'
-        customHeaders: '{
-              "Authorization":  ${{ secrets.TOKEN }}
-            }'
+        data: '{"track":  "${{ github.event.comment.body }}"}'
+        customHeaders: '{"Authorization":  "${{ secrets.TOKEN }}"}'
         ignoreStatusCodes: 'false'
     - name: done
       run:  echo enqueued ${{ github.event.comment.body }}!

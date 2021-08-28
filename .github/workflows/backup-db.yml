@@ -13,10 +13,7 @@ jobs:
       with:
         url: ${{ secrets.BACKUP_URL }}
         method: 'GET'
-        customHeaders: '{
-              "Authorization":  "${{ secrets.TOKEN }}"
-            }'
+        customHeaders: '{"Authorization":  "${{ secrets.TOKEN }}"}'
         ignoreStatusCodes: 'false'
-        timeout: 10000
     - name: done
       run:  echo Daily backup started!

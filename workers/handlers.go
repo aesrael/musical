@@ -22,13 +22,13 @@ func processDownload(c context.Context, t *asynq.Task) error {
 	if err != nil {
 		return err
 	}
-	existing, err := RedisDB.Get(trackId).Result()
+	status, err := RedisDB.Get(trackId).Result()
 
 	if err != nil && !isRedisNilError(err) {
 		return err
 	}
 
-	if existing == "done" || existing == "pending" {
+	if status == "done" || status == "pending" {
 		return fmt.Errorf("file already processed, %w", asynq.SkipRetry)
 	}
 
