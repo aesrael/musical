@@ -1,6 +1,7 @@
 package workers
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"io/ioutil"
@@ -35,6 +36,11 @@ func uploadTrack(dirName string) error {
 	}
 
 	wg.Wait()
+
+	if anyFailed {
+		return errors.New("upload error: some files not uploaded")
+	}
+
 	if err := RedisDB.Set(dirName, "done", 0).Err(); err != nil {
 		return err
 	}

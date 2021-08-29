@@ -32,7 +32,7 @@ func processDownload(c context.Context, t *asynq.Task) error {
 		return fmt.Errorf("file already processed, %w", asynq.SkipRetry)
 	}
 
-	log.WithField("job", job).Info("processing job")
+	log.WithField("job", job).Info("downloading track")
 
 	if err := downloadTrack(job.Track); err != nil {
 		log.WithField("track", job.Track).Error(fmt.Sprintf("download error: %s", err.Error()))
