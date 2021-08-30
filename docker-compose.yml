@@ -16,6 +16,7 @@ services:
       GO_ENV: production
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      GOOGLE_DRIVE_FOLDER: 1bDULAakbAaW-gkGQP9C24pnj7xkq7RIk
     networks:
       - server
 
