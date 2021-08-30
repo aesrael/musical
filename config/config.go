@@ -28,7 +28,7 @@ const ALLOWED_ORIGINS = "https://github.com"
 
 func InitConfig() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("No .env file found")
+		log.Info("No .env file found")
 	}
 
 	env := os.Getenv("GO_ENV")
