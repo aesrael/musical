@@ -28,4 +28,4 @@ RUN go build -o main .
 
 EXPOSE 8999
 
-CMD ["make", "run"]
+CMD ["make", "run-prod"]
