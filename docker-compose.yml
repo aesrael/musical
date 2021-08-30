@@ -1,0 +1,29 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8999:8999"
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on: 
+      - redis
+    environment:
+      GO_ENV: production
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - server
+
+  redis:
+    image: "redis:alpine" 
+    restart: unless-stopped
+    networks:
+      - server
+
+networks:
+  server:
