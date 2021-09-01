@@ -8,7 +8,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8999:8999"
-      - "8080:8080"
     restart: unless-stopped
     depends_on: 
       - redis
@@ -16,6 +15,10 @@ services:
       GO_ENV: production
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      REDIS_USERNAME: ${REDIS_USERNAME}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      JWT_KEY: ${JWT_KEY}
+      GOOGLE_API_CREDENTIALS: ${GOOGLE_API_CREDENTIALS}
       GOOGLE_DRIVE_FOLDER: 1bDULAakbAaW-gkGQP9C24pnj7xkq7RIk
     networks:
       - server
