@@ -1,6 +1,4 @@
 build-run:
-	go build -o main . && ./main & ./asynqmon
+	go build -o main . && ./main
 run:
-	./main & ./asynqmon
-run-prod:
-	./main & ./asynqmon.bin --redis-addr=redis:6379
+	./main
