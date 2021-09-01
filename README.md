@@ -11,11 +11,7 @@ Building a job runner and exec environment around https://github.com/spotDL/spot
 * install redis (brew install redis)
 
 * install the spotify-downloader executable (https://github.com/spotDL/spotify-downloader)
-<<<<<<< HEAD
-note that this requies ffmpeg in order to work, so be sure to install ffmpeg also
-=======
-note that this requires ffmpeg in other to work, so be sure to install ffmpeg also
->>>>>>> 2da2ceb (dockerize app)
+note that this requires ffmpeg in order to work, so be sure to install ffmpeg also
 
 ## how it works
 This service consists of an http server, a redis database (used also as a queue & cache) and a set of workers consuming jobs published to said queue.
