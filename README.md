@@ -66,3 +66,8 @@ the endpoints are
        Authorization: ${TOKEN},
       }
 ```
+
+## deployment
+App is deployed on a GCP compute engine vm instance.
+
+~~deployments are triggered by a github workflow with every push to the main branch~~
