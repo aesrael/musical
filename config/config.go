@@ -28,7 +28,7 @@ const ALLOWED_ORIGINS = "https://github.com"
 
 func InitConfig() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("No .env file found")
+		log.Info("No .env file found")
 	}
 
 	env := os.Getenv("GO_ENV")
@@ -40,7 +40,6 @@ func InitConfig() {
 		"REDIS_PORT",
 		"REDIS_PASSWORD",
 		"REDIS_USERNAME",
-		"GITHUB_TOKEN",
 		"GOOGLE_API_CREDENTIALS",
 		"GOOGLE_DRIVE_FOLDER",
 	}
@@ -54,4 +53,5 @@ func InitConfig() {
 			Config[env] = envVal
 		}
 	}
+	log.Info("All config & secrets set")
 }

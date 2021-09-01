@@ -1,2 +1,4 @@
-run: 
-	go build . && ./musical
+build-run:
+	go build -o main . && ./main
+run:
+	./main

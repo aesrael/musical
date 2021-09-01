@@ -19,3 +19,7 @@ __debug_bin
 .spotdl-cache
 files/
 .DS_Store
+asynqmon
+main
+asynqmon.bin
+.misc
