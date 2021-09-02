@@ -1,4 +1,4 @@
-# musical
+# musical 🎸🎧
 
 [![.github/workflows/send-track.yml](https://github.com/aesrael/musical/actions/workflows/send-track.yml/badge.svg)](https://github.com/aesrael/musical/actions/workflows/send-track.yml)
 
