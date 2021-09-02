@@ -36,7 +36,7 @@ func enqueueJob(c *fiber.Ctx) error {
 		return err
 	}
 	log.WithField("job", params).Info("job queued succesfully")
-	return nil
+	return c.SendStatus(http.StatusOK)
 }
 
 func backupDb(c *fiber.Ctx) error {

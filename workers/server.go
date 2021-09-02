@@ -27,6 +27,7 @@ func InitWorkers() {
 	}
 
 	RedisDB = conn.MakeRedisClient().(*redis.Client)
+	defer RedisDB.Conn().Close()
 
 	worker := asynq.NewServer(conn, asynq.Config{
 		Concurrency: 20,
