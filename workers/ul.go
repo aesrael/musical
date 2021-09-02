@@ -26,12 +26,15 @@ func uploadTrack(dirName string) error {
 		return err
 	}
 
-	wg := new(sync.WaitGroup)
-	wg.Add(len(files))
-
 	anyFailed := false
+	wg := new(sync.WaitGroup)
 
 	for _, v := range files {
+		if !isMusicFile(v.Name()) {
+			continue
+		}
+
+		wg.Add(1)
 		go asyncUpload(v, wg, dirPath, &anyFailed)
 	}
 
@@ -50,10 +53,6 @@ func uploadTrack(dirName string) error {
 
 func asyncUpload(v fs.FileInfo, wg *sync.WaitGroup, dirPath string, anyFailed *bool) {
 	defer wg.Done()
-
-	if !isMusicFile(v.Name()) {
-		return
-	}
 
 	trackPath := filepath.Join(dirPath, v.Name())
 	file, err := ioutil.ReadFile(trackPath)
