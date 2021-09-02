@@ -15,7 +15,7 @@ import (
 
 const SPOTDL = "spotdl"
 
-const SPOTIFY_TRACK_REGEX = `https://open.spotify.com/(track|playlist|album)/\w*`
+const SPOTIFY_TRACK_REGEX = `https://open.spotify.com/(track|playlist|album|artist)/\w*`
 const ROOT_FILES_PATH = "files/"
 
 func downloadTrack(track string) error {
