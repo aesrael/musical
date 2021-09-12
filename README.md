@@ -57,10 +57,10 @@ for a more visual guide to service accounts see these
 
 http server is exposed on port `8999`
 the endpoints are
-| endpoint     | method | body                          | description                     |
-| ----------- | --------|-------------------------------|---------------------------------|
-| /api/job    | POST    | {"track": track\|playlist url} | enqueue a new track for download
-| /api/backup | GET     | -                             | backup db                 |
+| endpoint     | method | body                                        | description                     |
+| ----------- | --------|---------------------------------------------|---------------------------------|
+| /api/job    | POST    | {"track": track\|playlist\|artist\|album url} | enqueue a new track, artist, album or playlist for download
+| /api/backup | GET     | -                                           | backup db
 
 both endpoint requires an `Authorization` header with any jwt token generated from the secret key.
 
